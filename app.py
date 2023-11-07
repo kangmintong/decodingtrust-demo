@@ -11,6 +11,7 @@ import os
 from perspectives.ood_failure import extract_ood_examples
 from perspectives.adv_demo_failure import extract_adv_demo
 from perspectives.ethics_failure import extract_ethic_examples
+from perspectives.fairness_failure import extract_fairness_examples
 import pandas as pd
 import random
 
@@ -515,6 +516,8 @@ def retrieve_fault_demo(model, categories, subfield, curr_examples):
         df, curr_button = extract_failure(extract_adv_demo, model, subfield, curr_examples)
     elif categories == "Machine Ethics":
         df, curr_button = extract_failure(extract_ethic_examples, model, subfield, curr_examples)
+    elif categories == "Fairness":
+        df, curr_button = extract_failure(extract_fairness_examples, model, subfield, curr_examples)
     else:
         df = gr.Dataframe(value=pd.DataFrame.from_records([{"Query":"Test Test Test", "Outputs": "Test Test Test"}] * 10), visible=True, row_count=[10, "fixed"], col_count=[2, "fixed"], headers=["Query", "Outputs"])
         curr_button = gr.Button(value="More examples!", visible=True)
